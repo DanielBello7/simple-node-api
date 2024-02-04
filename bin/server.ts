@@ -1,3 +1,4 @@
+import "module-alias";
 import http from "http";
 import expressServerApp from "../app";
 import environment_config from "../config/environment.config";

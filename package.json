@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=development LANG=ts mocha --require ts-node/register --watch-extensions ts __tests__/**/*.ts",
+    "build": "tsc && resolve-tspaths",
+    "start": "NODE_ENV=production LANG=js node ./build/bin/server.js | bunayn -o short",
+    "dev": "NODE_ENV=development LANG=ts ts-node-dev --respawn ./bin/server.ts | bunyan -o short",
+    "deploy": "npm run build && pm2 startOrRestart ecosystem.config.js"
   },
   "keywords": [],
   "author": "",
@@ -19,10 +23,16 @@
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "pm2": "^5.3.1"
   },
   "devDependencies": {
+    "@types/module-alias": "^2.0.4",
+    "module-alias": "^2.2.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
+  },
+  "_moduleAliases": {
+    "@": "./"
   }
 }
