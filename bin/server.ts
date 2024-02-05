@@ -4,16 +4,18 @@ import expressServerApp from "../app";
 import environment_config from "../config/environment.config";
 import { variables } from "../constants";
 import logger from "../config/logger.config";
+import ip from "ip";
 
 environment_config();
 
 const app = expressServerApp();
 const server = http.createServer(app);
 const port = variables.PORT ?? 4000;
+const address = ip.address();
 app.set("port", port);
 
 function onListening() {
-  return logger.info(`server active on port ${port}`);
+  return logger.info(`server active on port http://${address}:${port}`);
 }
 
 function onError(error: any) {
